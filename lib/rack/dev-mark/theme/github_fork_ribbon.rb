@@ -30,7 +30,7 @@ module Rack
 
           html
             .sub(%r{(</head>)}i, "#{style_tag_str.strip}\\1")
-            .sub(%r{(<body[^>]*>)}i, "\\1#{div_tag_str.strip}")
+            .sub %r{([^']<body[^>]*>)}i, "\\1#{div_tag_str.strip}"
         end
       end
     end
