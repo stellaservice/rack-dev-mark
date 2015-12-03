@@ -24,8 +24,7 @@ module Rack
 <![endif]-->
 <div class="github-fork-ribbon-wrapper #{position}#{fixed}" onClick="this.style.display='none'" title="#{title}"><div class="github-fork-ribbon #{color}"><span class="github-fork-ribbon-text">#{env}</span></div></div>
           EOS
-
-          html.sub %r{(<body[^>]*>)}i, "\\1#{s.strip}"
+          html.sub %r{(<\/head>.*(<body[^>]*>))}i, "\\1#{s.strip}"
         end
       end
     end

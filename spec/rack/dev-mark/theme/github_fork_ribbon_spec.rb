@@ -64,4 +64,15 @@ describe Rack::DevMark::Theme::GithubForkRibbon do
       subject { Rack::DevMark::Theme::GithubForkRibbon.new(fixed: true) }
     end
   end
+  context "finds body not in head tag" do
+    let :input do
+      <<-EOS
+<html><head>head<title>title</title><script>o.write('<body onload="document._l();"></head>');</script><style>
+      EOS
+    end
+    it "ignores a body inside head tag, such as in a script" do
+      subject { Rack::DevMark::Theme::GithubForkRibbon.new(fixed: true) }
+      expect(subject.insert_into(input, 'env', revision: 'rev', timestamp: 'time')).to eq(input)
+    end
+  end
 end
